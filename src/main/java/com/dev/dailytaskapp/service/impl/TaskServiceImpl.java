@@ -6,9 +6,11 @@ import com.dev.dailytaskapp.domain.entity.TaskPriority;
 import com.dev.dailytaskapp.domain.entity.TaskStatus;
 import com.dev.dailytaskapp.repository.TaskRepository;
 import com.dev.dailytaskapp.service.TaskService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -32,6 +34,12 @@ public class TaskServiceImpl implements TaskService {
                 now,
                 now
 
-        );return taskRepository.save(task);
+        );
+        return taskRepository.save(task);
+    }
+
+    @Override
+    public List<Task> listTasks() {
+        return taskRepository.findAll(Sort.by(Sort.Direction.ASC, "created"));
     }
 }
