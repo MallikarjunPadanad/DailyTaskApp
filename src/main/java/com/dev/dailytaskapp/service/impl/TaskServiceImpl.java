@@ -4,6 +4,8 @@ import com.dev.dailytaskapp.domain.CreateTaskRequest;
 import com.dev.dailytaskapp.domain.entity.Task;
 import com.dev.dailytaskapp.domain.entity.TaskPriority;
 import com.dev.dailytaskapp.domain.entity.TaskStatus;
+import com.dev.dailytaskapp.domain.entity.UpdateTaskRequest;
+import com.dev.dailytaskapp.exceptions.TaskNotFoundException;
 import com.dev.dailytaskapp.repository.TaskRepository;
 import com.dev.dailytaskapp.service.TaskService;
 import org.springframework.data.domain.Sort;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -41,5 +44,19 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> listTasks() {
         return taskRepository.findAll(Sort.by(Sort.Direction.ASC, "created"));
+    }
+
+    @Override
+    public Task updateTask(UUID taskId, UpdateTaskRequest request) {
+        Task task = taskRepository.findById(taskId).
+                orElseThrow(() -> new TaskNotFoundException(taskId));
+
+        task.setTitle(request.title());
+        task.setDescription(request.description());
+        task.setDueDate(request.dueDate());
+        task.setPriority(request.priority());
+        task.setStatus(request.status());
+        task.setUpdated(Instant.now());
+        return taskRepository.save(task);
     }
 }
