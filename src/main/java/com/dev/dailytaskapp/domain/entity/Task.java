@@ -24,7 +24,7 @@ public class Task {
     @Column(name = "title",nullable = false)
     private String title;
 
-    @Column(name = "description" , length = 1024)
+    @Column(name = "description" , length = 1000)
     private String description;
 
 
