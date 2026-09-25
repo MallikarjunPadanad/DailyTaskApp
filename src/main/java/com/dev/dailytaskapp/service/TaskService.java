@@ -2,7 +2,7 @@ package com.dev.dailytaskapp.service;
 
 import com.dev.dailytaskapp.domain.CreateTaskRequest;
 import com.dev.dailytaskapp.domain.entity.Task;
-import com.dev.dailytaskapp.domain.entity.UpdateTaskRequest;
+import com.dev.dailytaskapp.domain.UpdateTaskRequest;
 
 import java.util.List;
 import java.util.UUID;

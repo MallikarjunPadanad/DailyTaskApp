@@ -2,9 +2,8 @@ package com.dev.dailytaskapp.service.impl;
 
 import com.dev.dailytaskapp.domain.CreateTaskRequest;
 import com.dev.dailytaskapp.domain.entity.Task;
-import com.dev.dailytaskapp.domain.entity.TaskPriority;
 import com.dev.dailytaskapp.domain.entity.TaskStatus;
-import com.dev.dailytaskapp.domain.entity.UpdateTaskRequest;
+import com.dev.dailytaskapp.domain.UpdateTaskRequest;
 import com.dev.dailytaskapp.exceptions.TaskNotFoundException;
 import com.dev.dailytaskapp.repository.TaskRepository;
 import com.dev.dailytaskapp.service.TaskService;
