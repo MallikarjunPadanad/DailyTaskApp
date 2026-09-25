@@ -1,8 +1,10 @@
 package com.dev.dailytaskapp.mapper.impl;
 
 import com.dev.dailytaskapp.domain.CreateTaskRequest;
+import com.dev.dailytaskapp.domain.UpdateTaskRequest;
 import com.dev.dailytaskapp.domain.dto.CreateTaskRequestDto;
 import com.dev.dailytaskapp.domain.dto.TaskDto;
+import com.dev.dailytaskapp.domain.dto.UpdateTaskRequestDto;
 import com.dev.dailytaskapp.domain.entity.Task;
 import com.dev.dailytaskapp.mapper.TaskMapper;
 import jakarta.validation.Valid;
@@ -31,6 +33,17 @@ public class TaskMapperImpl implements TaskMapper {
                 task.getDueDate(),
                 task.getPriority(),
                 task.getStatus()
+        );
+    }
+
+    @Override
+    public UpdateTaskRequest fromDto(UpdateTaskRequestDto dto) {
+        return new UpdateTaskRequest(
+                dto.title(),
+                dto.description(),
+                dto.dueDate(),
+                dto.status(),
+                dto.priority()
         );
     }
 }

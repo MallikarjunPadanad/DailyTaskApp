@@ -1,8 +1,10 @@
 package com.dev.dailytaskapp.controller;
 
 import com.dev.dailytaskapp.domain.CreateTaskRequest;
+import com.dev.dailytaskapp.domain.UpdateTaskRequest;
 import com.dev.dailytaskapp.domain.dto.CreateTaskRequestDto;
 import com.dev.dailytaskapp.domain.dto.TaskDto;
+import com.dev.dailytaskapp.domain.dto.UpdateTaskRequestDto;
 import com.dev.dailytaskapp.domain.entity.Task;
 import com.dev.dailytaskapp.mapper.TaskMapper;
 import com.dev.dailytaskapp.service.TaskService;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/v1/tasks")
@@ -41,7 +44,20 @@ public class TaskController {
         return ResponseEntity.ok(taskDtos);
     }
 
+    @PutMapping(path = "/{taskId}")
+    public ResponseEntity<TaskDto> updateTask(
+            @PathVariable UUID taskId,
+            @Valid @RequestBody UpdateTaskRequestDto updateTaskRequestDto
+    ) {
+        UpdateTaskRequest updateTaskRequest = taskMapper.fromDto(updateTaskRequestDto);
+        Task task = taskService.updateTask(taskId, updateTaskRequest);
+        TaskDto taskDto = taskMapper.toDto(task);
+        return ResponseEntity.ok(taskDto);
+    }
 
-
-
+    @DeleteMapping(path = "/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable UUID taskId) {
+        taskService.deleteTask(taskId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
